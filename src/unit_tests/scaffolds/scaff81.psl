@@ -1,0 +1,5 @@
+match  mis- 	       rep.   N's	Q gap	Q gap	T gap	T gap	strand	Q		Q	Q	Q	T     T   block blockSizes  qStarts  tStarts
+            	       match  match	   	count	bases	count	bases	      		name     	size	start end start	end	    count
+		       ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+		       276	0	0	0	0	0	0	0	+	scaffold-81	7666	0 276 1550518 1550794 1 276, 0, 1550518,
+		       7394	0	0	0	0	0	0	0	-	scaffold-81	7666	272   7666    1550490 1557884	1 7394, 0, 1550490,

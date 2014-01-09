@@ -1,0 +1,48 @@
+quast.py -o quastOutRemoveMe/ velvetOut/contigs.fa
+
+Version 2.2, build 08.07.2013_02:40
+
+System information:
+  OS: Linux-3.9.9-201.fc18.x86_64-x86_64-with-fedora-18-Spherical_Cow
+  Python version: 2.7.3
+  CPUs number: 32
+
+Started: 2013-07-22 00:28:43
+
+Logging to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/quast.log
+
+NOTICE: Output directory already exists. Existing Nucmer alignments can be used.
+
+NOTICE: Maximum number of threads is set to 32 (use --threads option to set it manually)
+
+Contigs:
+  velvetOut/contigs.fa ==> contigs
+
+2013-07-22 00:28:45
+Running Basic statistics processor...
+  Contigs files: 
+    contigs
+  Calculating N50 and L50...
+    contigs, N50 = 60332, L50 = 44, Total length = 8377038, GC % = 50.77, # N's per 100 kbp =  0.00
+  Drawing cumulative plot...
+    saved to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/basic_stats/cumulative_plot.pdf
+  Drawing GC content plot...
+    saved to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/basic_stats/GC_content_plot.pdf
+  Drawing Nx plot...
+    saved to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/basic_stats/Nx_plot.pdf
+Done.
+
+NOTICE: Genes are not predicted by default. Use --gene-finding option to enable it.
+
+2013-07-22 00:28:47
+Summarizing...
+  Creating total report...
+    saved to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/report.txt, report.tsv, and report.tex
+  Transposed version of total report...
+    saved to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/transposed_report.txt, transposed_report.tsv, and transposed_report.tex
+  HTML version saved to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/report.html
+  All pdf files are merged to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/plots.pdf
+Log saved to /s/chopin/h/proj/plant_pathogen_data/owen/bioinf/progs2/src/quastOutRemoveMe/quast.log
+
+Finished: 2013-07-22 00:28:47
+Elapsed time: 0:00:03.840450

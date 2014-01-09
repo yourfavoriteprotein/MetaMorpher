@@ -1,0 +1,10 @@
+run randChromosome to get a random chromosome AND position from directory.
+
+If it's just a file (single chromosome) then it returns position to insert
+a transposable element.
+
+Run randomTE to get a random transposable element from a fasta file of
+transposable elements.
+
+After getting all this information (and writing it down!) run inserter
+to insert a TE x number of times on the chosen chromosome.

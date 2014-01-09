@@ -1,0 +1,14 @@
+#!/usr/bin/python2.7
+
+import metaMorpher_utils as mmu
+
+def misassembly(line=None, lines=None):
+	if line:
+		misassembly_dispatch_line(line)
+	if lines:
+		misassembly_dispatch_line_s(lines)
+
+def misassembly_dipatch_line(line)
+	pdata = PSLData(line)
+
+def misassembly_dipatch_line_s(lines)

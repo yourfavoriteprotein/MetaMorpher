@@ -1,0 +1,10 @@
+psLayout version 3
+
+match	mis-	rep.	N's	Q gap	Q gap	T gap	T gap	strand	Q			Q		Q		Q	T			T		T		T	block	blockSizes	qStarts	 tStarts
+		match	match		count	bases	count	bases			name		size	start	end	name		size	start	end	count
+		---------------------------------------------------------------------------------------------------------------------------------------------------------------
+		5576	0	0	0	0	0	0	0	+	NODE_1_length_5556_cov_155.982727	5576	0	5576	NODE_55_length_3105_cov_244.269241	4639675	0	5576	1	5576,	0,	0,
+		45	0	0	0	0	0	0	0	+	NODE_15_length_25_cov_160.000000	45	0	45	NODE_55_length_3105_cov_244.269241	4639675	5582	5627	1	45,	0,	5582,
+		35	2	0	0	0	0	0	0	+	NODE_15_length_25_cov_160.000000	45	4	41	NODE_55_length_3105_cov_244.269241	4639675	430206	430243	1	37,	4,	430206,
+		3343	0	0	0	0	0	0	0	+	NODE_25_length_3323_cov_160.000000	3343	0	3343	NODE_55_length_3105_cov_244.269241	4639675	5652	8995	1	3343,	0,	5652,
+		4671	0	0	0	0	0	0	0	+	NODE_27_length_4651_cov_160.000000	4671	0	4671	NODE_55_length_3105_cov_244.269241	4639675	8976	13647	1	4671,	0,	8976,
