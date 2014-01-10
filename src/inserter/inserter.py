@@ -64,7 +64,9 @@ class Inserter(object):
 
 	def _write_chrom(self):
 		'''write modified chromosome to file'''
-		fname = "modified__" + self.inFile # should have fasta extension
+		fname = self.inFile.split('/')
+		fname[-1] = "modified__" + fname[-1] # should have fasta extension
+		fname = fname[-1]
 		#with open ("modifiedChromosome.fasta", 'w') as outfile:
 		with open (fname, 'w') as outfile:
 			outfile.write(self.header+"\n")

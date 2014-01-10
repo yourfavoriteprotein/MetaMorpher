@@ -129,6 +129,7 @@ class MetaMorpher(object):
 		self.dt = time.localtime()
 		self.dt = time.strftime("%d.%m.%Y.%H.%M.%S", self.dt)
 		self.topdir = assembler + self.dt + "MetaMorpher_Run"
+		#self.topdir = self.dt + "MetaMorpher_Run"
 		os.makedirs(self.topdir)
 
 		self.reference = reference
