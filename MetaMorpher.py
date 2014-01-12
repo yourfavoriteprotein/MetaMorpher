@@ -144,7 +144,7 @@ class MetaMorpher(object):
 		if self.quast:
 			self.quastdir = self.topdir + '/' + self.dt + "Quast"
 			os.makedirs(self.quastdir)
-		self.report_file = self.topdir + '/' + "report.txt"
+		self.report_file = self.topdir + '/' + "coverage_report.txt"
 		self.option = option
 		self.misassembly = misassembly
 		self.mismatch = mismatch
@@ -284,13 +284,18 @@ class MetaMorpher(object):
 
 		if not self.mclist:
 			self.mclist = [self.reference]
-		with open(self.report_file, 'w') as rf:
-			for chrom in self.mclist:
-				print chrom # print out the chromosome
-				p = pslc.PSLCoverage(self.blatout, self.contigs, chrom, self.misassembly,
-					self.quast, self.mismatch, self._minblock)
-				chrom_report = p.coverage_report() # print out report
-				rf.write(chrom_report) # write to file
+		for chrom in self.mclist:
+			print chrom # print out the chromosome
+			p = pslc.PSLCoverage(self.blatout, self.contigs, chrom, self.misassembly,
+				self.quast, self.mismatch, self._minblock)
+			chrom_report = p.coverage_report(self.topdir) # print out report
+			'''
+			print "chrom_report:"
+			print "~~~~~~~~~~~~~"
+			print chrom_report
+			print "~~~~~~~~~~~~~"
+			'''
+			#rf.write(chrom_report) # write to file
 
 		# run Quast
 		if self.quast:
