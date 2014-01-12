@@ -23,7 +23,9 @@ class PSLCoverage(object):
 	Coverage is the % of reference genome that contigs, the output of an assembler span
 	'''
 
-	def coverage_report(self):
+	def coverage_report(self, topdir='.'):
+		fname = topdir + "/coverage_report.txt"
+		myreport = open(fname, 'a')
 		'''print out coverage stats'''
 		result = ""
 		ctr = 0
@@ -33,8 +35,10 @@ class PSLCoverage(object):
 				ctr += 1
 		foo = float(ctr)/len(self.reference.matched) * 100
 		res = "% matched:", foo
+		res = str(res)
 		result += res + '\n'
 		print res
+		myreport.write(res + '\n')
 
 		# print % seen
 		ctr = 0
@@ -43,24 +47,38 @@ class PSLCoverage(object):
 				ctr += 1
 		foo = float(ctr)/len(self.reference.matched) * 100
 		res = "% seen:", foo
+		res = str(res)
 		result += res + '\n'
 		print res
+		myreport.write(res + '\n')
 
 		res =  "# misassembled:", self.misassemblies
+		res = str(res)
 		result += res + '\n'
 		print res
+		myreport.write(res + '\n')
 
 		if self._count_misassembly:
 			res = "Misassembled contigs:"
 			result += res + '\n'
 			print res
+			myreport.write(res + '\n')
 			for contig in self.contigs:
 				if self.contigs[contig].misassembled:
 					res = "\t", contig
+					res = str(res)
 					result += res + '\n'
 					print res
+					myreport.write(res + '\n')
 		
 		result += "\n"
+		'''
+		print "result string:"
+		print "~~~~~~~~~~~~~"
+		print result
+		print "~~~~~~~~~~~~~"
+		'''
+		myreport.close()
 		return result
 
 	def __init__(self, psl, contigs, reference, misassembly=False, quast=False, mismatch=False, block=500):
