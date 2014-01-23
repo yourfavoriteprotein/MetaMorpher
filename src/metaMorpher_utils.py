@@ -80,7 +80,7 @@ def _MetaMorpher_base_parser(parser=None):
 	if not parser:
 		parser = argparse.ArgumentParser(description="MY GREAT PARSER")
 	parser.add_argument('--assembler', help="include name of assembler you want to " \
-		"use, for example 'Velvet' or 'Ray'. Defaults to Velvet.")
+		"use {velvet ray spades soap idba}. Defaults to Velvet.")
 	parser.add_argument('-qu', '--quast', help="include quast report, defaults " \
 		"to false", action='store_true')
 	parser.add_argument('-k', '--kmer', help="set kmer length, if applicable", type=int)
@@ -547,6 +547,10 @@ def get_quast_report(quastf):
 				continue
 			if startslist(line[0], vals):
 				quastl.append((" ".join(line[:-1]), line[-1]))
+			# double check on this one
+			elif startslist(line[1], ['misassemblies']):
+				quastl.append((" ".join(line[:-1]), line[-1]))
+
 	return quastl
 
 

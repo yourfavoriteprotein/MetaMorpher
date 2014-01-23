@@ -232,7 +232,7 @@ class MMConfigurator(object):
 		res = raw_input("Include Quast in report? 'true' or 'false':\n\t").strip()
 		if res:
 			self.defaults['quast'] = res.lower()
-		res = raw_input("Assembler to be used? Velvet, Ray, or Spades?:\n\t").strip()
+		res = raw_input("Assembler to be used? Velvet, Ray, Spades, SOAPDenovo, or IDBA?:\n\t").strip()
 		if res:
 			self.defaults['assembler'] = res.lower()
 		res = raw_input("Path to blat? Or just 'blat' if $PATH set:\n\t").strip()

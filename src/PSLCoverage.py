@@ -81,7 +81,7 @@ class PSLCoverage(object):
 		myreport.close()
 		return result
 
-	def __init__(self, psl, contigs, reference, misassembly=False, quast=False, mismatch=False, block=500):
+	def __init__(self, psl, contigs, reference, misassembly=False, quast=False, mismatch=False, block=500, report_file='.'):
 		# handle passed in args
 		self._psl_file = psl						# text file
 		self._contig_file = contigs					# text file
@@ -90,6 +90,8 @@ class PSLCoverage(object):
 		self._count_misassembly = misassembly		# boolean
 		self._quast = quast							# boolean
 		self._mismatch = mismatch					# boolean
+
+		self._report = report_file + "/coverage_report.txt"
 		if not block:
 			block = 500
 		self._minblock = int(block)
@@ -227,6 +229,9 @@ class PSLCoverage(object):
 				is_misassembled(self.psl[contig_name], self._minblock)
 			'''
 			# number of misassemblies in this contig == num_misassemblies
+
+			myreport = open(self._report, 'a')
+
 			mis_result = is_misassembled(self.psl[contig_name], self._minblock)
 			num_misassemblies = 0
 			if mis_result:
@@ -239,9 +244,13 @@ class PSLCoverage(object):
 					#	num_misassemblies += 1
 
 				# for each contig object, set its "misassembled" flag if it is misassembled
-				print contig_name, "is misassembled", mis_result
+
+				#print contig_name, "is misassembled", mis_result
+				#myreport.write(contig_name + " is misassembled " + str(mis_result))
+				message = contig_name + " is misassembled " + str(mis_result) + "\n"
+				print message
+				myreport.write(message)
 				self.contigs[contig_name].misassembled = True
-				#self.misassemblies += 1 # increment number of misassemblies
 				self.misassemblies += num_misassemblies # increment number of misassemblies
 
 			for i in xrange(get_best_contig(self.psl[contig_name]).blockCount):
@@ -258,6 +267,7 @@ class PSLCoverage(object):
 				# else:
 					# don't mark matched
 					# don't mark seen
+			myreport.close()
 	
 	def _mark_all_matched(self, contig_name, block_index):
 		'''

@@ -205,8 +205,10 @@ class MetaMorpher(object):
 			if self.option == "noread" :
 				velhcmd = " ".join((self.assemblerOutDir, str(self.kmer), "-fasta ", self.read1))
 			else:
+				'''velhcmd = " ".join((self.assemblerOutDir, str(self.kmer), "-fasta " \
+					"-separate", self.read1, self.read2))'''
 				velhcmd = " ".join((self.assemblerOutDir, str(self.kmer), "-fasta " \
-					"-separate", self.read1, self.read2))
+					"-shortPaired", self.read1, "-shortPaired2", self.read2))
 			print "starting velveth..."
 			subprocess.call(velPath +"velveth "+ velhcmd, shell=True, stdout=self.logfile)
 			print "velveth done\n"
@@ -237,6 +239,46 @@ class MetaMorpher(object):
 			subprocess.call(raycmd, shell=True, stdout=self.logfile)
 			print "Ray done"
 			self.contigs = self.assemblerOutDir + "/Contigs.fasta"
+
+		elif self.assembler.lower() == "idba":
+			if not self.assemblerpath:
+				self.assemblerpath = "idba"
+			idbacmd = self.assemblerpath + " -o " + self.assemblerOutDir \
+				+ " -r " + self.read1 + " --read_level_2 " + self.read2 \
+				+ " --seed_kmer " + str(self.kmer)
+			print "starting IDBA..."
+			subprocess.call(idbacmd, shell=True, stdout=self.logfile)
+			print "IDBA done"
+			self.contigs = self.assemblerOutDir + "/graph-20.fa"
+
+		elif self.assembler.lower() == 'soap' or self.assembler.lower() == 'soapdenovo':
+			if not self.assemblerpath:
+				# probably wrong, user needs to specify this one
+				self.assemblerpath = 'SOAPdenovo-127mer'
+			# first, write the config
+			soap_config = self.topdir + '/soap_config.config'
+			with open(soap_config, 'w') as config:
+				config.write("reverse_seq=0\n")
+				config.write("#maximal read length\n")
+				config.write("max_rd_len=100\n") # need to let user specify this or pass it in
+				config.write("[LIB]\n")
+				config.write("#average insert size\n")
+				config.write("avg_ins=" + str(self.insert_size) + "\n")
+				config.write("#in which part(s) the reads are used\n")
+				config.write("asm_flags=3\n")
+				config.write("#use only first 100 bps of each read\n") ###### again pass in read_size from args
+				config.write("rd_len_cutoff=100\n") ########## again with this
+				config.write("#a pair of fasta file, read 1 file should always be followed by read 2 file\n")
+				config.write("f1=" + self.read1 + "\n")
+				config.write("f2=" + self.read2 + "\n")
+
+			# then, run the command!
+			soapcmd = self.assemblerpath + " all -s " + soap_config + " -K " \
+				+ str(self.kmer) + " -o graph_prefix"
+			print "starting SOAPDenovo..."
+			subprocess.call(soapcmd, shell=True, stdout=self.logfile)
+			print "SOAPDenovo done"
+			self.contigs = self.assemblerOutDir + "/graph_prefix.contig"
 
 		else:
 			pass
@@ -287,7 +329,7 @@ class MetaMorpher(object):
 		for chrom in self.mclist:
 			print chrom # print out the chromosome
 			p = pslc.PSLCoverage(self.blatout, self.contigs, chrom, self.misassembly,
-				self.quast, self.mismatch, self._minblock)
+				self.quast, self.mismatch, self._minblock, self.topdir)
 			chrom_report = p.coverage_report(self.topdir) # print out report
 			'''
 			print "chrom_report:"
@@ -317,8 +359,11 @@ class MetaMorpher(object):
 				report = self.quastdir + '/combined_quast_output/report.txt'
 			print "todo: fix printing quast report"
 			quastl = mu.get_quast_report(report)
-			for item in quastl:
-				print item[0] + "\t" + item[1]
+			covrpt = self.topdir + "/coverage_report.txt"
+			with open(covrpt, 'a') as f_covrpt:
+				for item in quastl:
+					print item[0] + "\t" + item[1]
+					f_covrpt.write(str(item[0]) + "\t" + str(item[1]))
 			# be sure to print out self.quastdir/report.txt for GC, N50, and N75
 
 
